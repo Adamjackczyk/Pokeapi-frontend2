@@ -1,0 +1,130 @@
+.data-page {
+  text-align: center;
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.data-page__title {
+  font-size: 32px;
+  color: var(--text-primary);
+  margin-bottom: 24px;
+}
+
+.data-page__description {
+  font-size: 16px;
+  color: var(--text-secondary);
+}
+
+.pokemon-grid {
+  display: grid;
+  gap: 24px;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  margin: 32px 0;
+}
+
+.button-container {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  margin: 32px 0;
+}
+
+.show-more-button {
+  background-color: var(--secondary-color);
+  color: white;
+  border: none;
+  padding: 12px 32px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.show-more-button:hover {
+  background-color: var(--primary-color);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.clear-cache-button {
+  background-color: var(--text-secondary);
+  color: white;
+  border: none;
+  padding: 12px 32px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.clear-cache-button:hover {
+  background-color: var(--error-color);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.all-loaded {
+  color: var(--text-secondary);
+  font-size: 16px;
+  margin: 24px 0;
+  font-style: italic;
+}
+
+.data-page__error {
+  color: var(--error-color);
+  margin: 24px 0;
+  font-size: 16px;
+}
+
+/* Large Screens */
+@media (min-width: 1441px) {
+  .pokemon-grid {
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 32px;
+  }
+}
+
+/* Medium Screens */
+@media (max-width: 1200px) {
+  .pokemon-grid {
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 20px;
+  }
+}
+
+/* Tablets */
+@media (max-width: 768px) {
+  .data-page__title {
+    font-size: 28px;
+  }
+
+  .pokemon-grid {
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 16px;
+  }
+
+  .button-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .button-container button {
+    width: 100%;
+    max-width: 300px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .data-page__title {
+    font-size: 24px;
+  }
+
+  .pokemon-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}
