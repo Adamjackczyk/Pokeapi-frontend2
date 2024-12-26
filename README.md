@@ -79,3 +79,7 @@ Toggle shiny sprites by clicking the shiny button.
 Clear Cached Data:
 
 Use the "Clear Cache" button on the Pokémon Data page to reset the cached Pokémon data.
+
+### View the Live Site:
+
+You can view the live version of the app here: [https://adamjackczyk.github.io/Pokeapi-frontend2](https://adamjackczyk.github.io/Pokeapi-frontend2/)
