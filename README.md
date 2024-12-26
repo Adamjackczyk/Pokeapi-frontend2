@@ -48,13 +48,10 @@ Follow these steps to set up and run the project locally:
 
 1. Clone the repository:
 
-   ```bash
-   git clone https://github.com/yourusername/pokeapi-frontend.git
-
-   ```
+   git clone https://github.com/adamjackczyk/Pokeapi-frontend2.git
 
 2. Navigate to the project directory:
-   cd pokeapi-frontend
+   cd pokeapi-frontend2
 
 3. Install the dependencies:
    npm install
