@@ -1,0 +1,139 @@
+.main {
+  text-align: center;
+  padding: 40px 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.main__intro {
+  text-align: center;
+  padding: 40px;
+  background: linear-gradient(
+    135deg,
+    var(--background-white),
+    var(--background-light)
+  );
+  border-radius: 16px;
+  margin-bottom: 40px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.main__intro-title {
+  font-size: 36px;
+  color: var(--primary-color);
+  margin-bottom: 16px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.main__intro-text {
+  font-size: 16px;
+  color: var(--text-secondary);
+  max-width: 800px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+.main__search {
+  background-color: var(--background-white);
+  padding: 32px;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  margin-top: 40px;
+}
+
+.main__search-title {
+  color: var(--secondary-color);
+  font-size: 24px;
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.search-form {
+  display: flex;
+  gap: 16px;
+  max-width: 600px;
+  margin: 0 auto;
+  align-items: flex-end;
+}
+
+.search-button {
+  background-color: var(--secondary-color);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+  height: 48px;
+}
+
+.search-button:hover {
+  background-color: var(--primary-color);
+  transform: translateY(-2px);
+}
+
+.main__search-results {
+  display: flex;
+  justify-content: center;
+  padding: 20px 0;
+}
+
+.main__ditto-placeholder {
+  text-align: center;
+  padding: 40px;
+}
+
+.main__ditto-image {
+  width: 120px;
+  height: auto;
+  margin: 0 auto 16px;
+  opacity: 0.7;
+  filter: grayscale(0.5);
+}
+
+.main__ditto-text {
+  font-size: 24px;
+  color: var(--text-secondary);
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .main {
+    padding: 20px;
+  }
+
+  .main__intro {
+    padding: 24px;
+  }
+
+  .main__intro-title {
+    font-size: 28px;
+  }
+
+  .main__search {
+    padding: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .search-form {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 0 10px;
+    gap: 12px;
+  }
+
+  .search-button {
+    width: 100%;
+  }
+
+  .main__intro-title {
+    font-size: 24px;
+  }
+
+  .main__ditto-text {
+    font-size: 20px;
+  }
+}
