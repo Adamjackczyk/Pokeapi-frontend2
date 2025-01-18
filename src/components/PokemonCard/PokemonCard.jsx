@@ -78,10 +78,10 @@ const PokemonCard = ({ name, url }) => {
 
   // Get sprite URL based on shiny state
   const getSpriteUrl = () => {
-    if (!details?.id) return null;
+    if (!details?.sprites) return null;
     return isShiny
-      ? `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/${details.id}.png`
-      : `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${details.id}.png`;
+      ? details.sprites.front_shiny
+      : details.sprites.front_default;
   };
 
   // Fetch initial Pokémon details
@@ -93,21 +93,29 @@ const PokemonCard = ({ name, url }) => {
     <div className="pokemon-card">
       <div className="pokemon-card__image-container">
         {details?.id ? (
-          <img
-            src={getSpriteUrl()}
-            alt={`${details.name} ${isShiny ? "shiny" : ""} sprite`}
-            className="pokemon-card__image"
-          />
+          <>
+            <img
+              src={getSpriteUrl()}
+              alt={`${details.name} ${isShiny ? "shiny" : ""} sprite`}
+              className="pokemon-card__image"
+              onError={(e) => {
+                e.target.onerror = null;
+                e.target.src = details.sprites.front_default;
+              }}
+            />
+            <button
+              className="shiny-toggle"
+              onClick={() => setIsShiny(!isShiny)}
+              aria-label={
+                isShiny ? "Show normal version" : "Show shiny version"
+              }
+            >
+              {isShiny ? "⭐" : "✨"}
+            </button>
+          </>
         ) : (
           <div className="pokemon-card__image-placeholder"></div>
         )}
-        <button
-          className="shiny-toggle"
-          onClick={() => setIsShiny(!isShiny)}
-          aria-label={isShiny ? "Show normal version" : "Show shiny version"}
-        >
-          {isShiny ? "⭐" : "✨"}
-        </button>
       </div>
 
       <h3 className="pokemon-card__name">
