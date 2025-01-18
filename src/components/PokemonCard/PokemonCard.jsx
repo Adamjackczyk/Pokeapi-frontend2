@@ -2,12 +2,18 @@ import React, { useState, useEffect, useCallback } from "react";
 import PropTypes from "prop-types";
 import "./PokemonCard.css";
 
-const PokemonCard = ({ name, url }) => {
+const PokemonCard = ({ name, url, globalShiny }) => {
   const [expanded, setExpanded] = useState(false);
   const [details, setDetails] = useState(null);
   const [loadingDetails, setLoadingDetails] = useState(false);
   const [evolutionChain, setEvolutionChain] = useState([]);
-  const [isShiny, setIsShiny] = useState(false);
+  const [isLocalShiny, setIsLocalShiny] = useState(false);
+
+  useEffect(() => {
+    if (globalShiny) {
+      setIsLocalShiny(false);
+    }
+  }, [globalShiny]);
 
   // Function to flatten the evolution chain
   const flattenEvolutionChain = (chain) => {
@@ -69,12 +75,22 @@ const PokemonCard = ({ name, url }) => {
   // Navigate to a specific Pokémon in the evolution chain
   const navigateEvolution = useCallback(
     async (pokemonName) => {
-      setIsShiny(false);
+      setIsLocalShiny(false);
       await fetchDetails(pokemonName);
       setExpanded(true);
     },
     [fetchDetails]
   );
+
+  // Calculate final shiny state (global overrides local)
+  const isShiny = globalShiny || isLocalShiny;
+
+  // Handle local shiny toggle - only works when global is off
+  const handleLocalShinyToggle = () => {
+    if (!globalShiny) {
+      setIsLocalShiny(!isLocalShiny);
+    }
+  };
 
   // Get sprite URL based on shiny state
   const getSpriteUrl = () => {
@@ -104,13 +120,14 @@ const PokemonCard = ({ name, url }) => {
               }}
             />
             <button
-              className="shiny-toggle"
-              onClick={() => setIsShiny(!isShiny)}
+              className={`shiny-toggle ${globalShiny ? "disabled" : ""}`}
+              onClick={handleLocalShinyToggle}
+              disabled={globalShiny}
               aria-label={
-                isShiny ? "Show normal version" : "Show shiny version"
+                isLocalShiny ? "Show normal version" : "Show shiny version"
               }
             >
-              {isShiny ? "⭐" : "✨"}
+              {isLocalShiny ? "⭐" : "✨"}
             </button>
           </>
         ) : (
@@ -253,6 +270,7 @@ const PokemonCard = ({ name, url }) => {
 PokemonCard.propTypes = {
   name: PropTypes.string.isRequired,
   url: PropTypes.string.isRequired,
+  globalShiny: PropTypes.bool,
 };
 
 export default PokemonCard;

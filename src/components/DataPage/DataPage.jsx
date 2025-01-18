@@ -12,12 +12,29 @@ const DataPage = () => {
   const [loading, setLoading] = useState(false);
   // State to handle any errors
   const [error, setError] = useState(null);
+  // State for global shiny toggle
+  const [isAllShiny, setIsAllShiny] = useState(false);
+  // State for tracking if button should be sticky
+  const [isSticky, setIsSticky] = useState(false);
   // Limit for the number of Pokémon to fetch per request
   const limit = 6;
   // Total number of Pokémon available
   const total = 1118;
   // State to manage the search term
   const [searchTerm, setSearchTerm] = useState("");
+
+  // Add scroll event listener
+  useEffect(() => {
+    const handleScroll = () => {
+      const offset = window.scrollY;
+      setIsSticky(offset > 100);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   // Load Pokémon data from local storage on component mount
   useEffect(() => {
@@ -81,6 +98,11 @@ const DataPage = () => {
     setSearchTerm(e.target.value);
   };
 
+  // Handler for toggling all Pokemon to shiny
+  const handleGlobalShinyToggle = () => {
+    setIsAllShiny(!isAllShiny);
+  };
+
   // Filter the Pokémon list based on the search term
   const filteredPokemon = pokemon.filter((poke) =>
     poke.name.toLowerCase().includes(searchTerm.toLowerCase())
@@ -92,12 +114,32 @@ const DataPage = () => {
   return (
     <div className="data-page">
       <h2 className="data-page__title">Pokémon List</h2>
-      <SearchBar searchTerm={searchTerm} handleSearch={handleSearch} />
+      <div className="controls-container">
+        <SearchBar searchTerm={searchTerm} handleSearch={handleSearch} />
+      </div>
+
+      <button
+        className={`floating-shiny-toggle ${isAllShiny ? "active" : ""} ${
+          isSticky ? "sticky" : ""
+        }`}
+        onClick={handleGlobalShinyToggle}
+        aria-label={
+          isAllShiny ? "Show all normal versions" : "Show all shiny versions"
+        }
+      >
+        {isAllShiny ? "⭐ All Normal" : "✨ All Shiny"}
+      </button>
+
       {error && <p className="data-page__error">{error}</p>}
 
       <div className="pokemon-grid">
         {filteredPokemon.map((poke, index) => (
-          <PokemonCard key={index} name={poke.name} url={poke.url} />
+          <PokemonCard
+            key={index}
+            name={poke.name}
+            url={poke.url}
+            globalShiny={isAllShiny}
+          />
         ))}
       </div>
 
