@@ -183,6 +183,17 @@
   filter: brightness(1.1);
 }
 
+.shiny-toggle.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background-color: #cccccc;
+}
+
+.shiny-toggle.disabled:hover {
+  transform: none;
+  box-shadow: none;
+}
+
 /* Mobile adjustments */
 @media (max-width: 480px) {
   .shiny-toggle {
